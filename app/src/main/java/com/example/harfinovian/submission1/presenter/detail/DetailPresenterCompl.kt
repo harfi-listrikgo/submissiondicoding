@@ -13,10 +13,10 @@ import io.reactivex.schedulers.Schedulers
 
 class DetailPresenterCompl(internal var detailView: DetailView) : IDetailPresenter {
 
-    val retrofit = APIRepository.getClient()
-    val detail = retrofit.create<TheSportDBApi>(TheSportDBApi::class.java)
+    private val retrofit = APIRepository.getClient()
+    private val detail = retrofit.create<TheSportDBApi>(TheSportDBApi::class.java)
 
-    override fun getMatchDetail(idEvent: String) {
+    override fun getMatchDetail(idEvent: String?) {
         detail.getEvent(idEvent)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())

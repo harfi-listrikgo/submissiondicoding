@@ -19,6 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.detail.DetailActivity" />
+        <activity
+            android:name=".view.main.Main2Activity"
+            android:label="@string/title_activity_main2"></activity>
     </application>
 
 </manifest>

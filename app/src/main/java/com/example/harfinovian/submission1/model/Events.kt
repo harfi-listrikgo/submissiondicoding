@@ -9,7 +9,7 @@ data class Events (
 
 @Parcelize
 data class Event (
-        var idEvent: String?,
+        var idEvent: String,
         var strEvent: String?,
         var strFilename: String?,
         var strSport: String?,

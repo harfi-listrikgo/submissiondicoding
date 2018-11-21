@@ -1,7 +1,9 @@
 package com.example.harfinovian.submission1.view.main
 
-import android.support.v4.view.ViewPager
+import android.os.Bundle
 
 interface MainView {
-    fun setupViewPager(viewPager: ViewPager)
+    fun loadLastFragment(savedInstanceState: Bundle?)
+    fun loadNextFragment(savedInstanceState: Bundle?)
+    fun loadFavFragment(savedInstanceState: Bundle?)
 }
