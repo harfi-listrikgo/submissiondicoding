@@ -15,7 +15,7 @@ import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.model.Events
 import com.example.harfinovian.submission1.presenter.match.IMatchPresenter
 import com.example.harfinovian.submission1.presenter.match.MatchPresenterCompl
-import kotlinx.android.synthetic.main.activity_main2.*
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_match.*
 import org.jetbrains.anko.support.v4.startActivity
 
