@@ -1,4 +1,4 @@
-package com.dicoding.kotlinacademy.db
+package com.example.harfinovian.submission1.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -12,12 +12,7 @@ class MyDatabaseOpenHelper(ctx: Context) : ManagedSQLiteOpenHelper(ctx, "Favorit
         private var instance: MyDatabaseOpenHelper? = null
 
         @Synchronized
-        fun getInstance(ctx: Context): MyDatabaseOpenHelper {
-            if (instance == null) {
-                instance = MyDatabaseOpenHelper(ctx.applicationContext)
-            }
-            return instance as MyDatabaseOpenHelper
-        }
+        fun getInstance(ctx: Context) = instance ?: MyDatabaseOpenHelper(ctx)
     }
 
     override fun onCreate(db: SQLiteDatabase) {

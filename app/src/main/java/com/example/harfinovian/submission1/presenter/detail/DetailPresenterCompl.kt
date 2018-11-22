@@ -11,7 +11,7 @@ import com.example.harfinovian.submission1.view.fragment.MatchView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class DetailPresenterCompl(internal var detailView: DetailView) : IDetailPresenter {
+class DetailPresenterCompl(private var detailView: DetailView) : IDetailPresenter {
 
     private val retrofit = APIRepository.getClient()
     private val detail = retrofit.create<TheSportDBApi>(TheSportDBApi::class.java)

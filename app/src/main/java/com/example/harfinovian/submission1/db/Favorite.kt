@@ -1,4 +1,4 @@
-package com.dicoding.kotlinacademy.db
+package com.example.harfinovian.submission1.db
 
 data class Favorite(val id: Long?, val eventId: String, val teamHomeId: String?, val teamAwayId: String?, val homeTeam: String?, val awayTeam: String?,
                     val scoreHome: String?, val scoreAway: String?, val date: String?) {

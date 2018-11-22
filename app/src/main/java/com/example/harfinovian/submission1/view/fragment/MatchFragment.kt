@@ -6,12 +6,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.dicoding.kotlinacademy.db.Favorite
 import com.example.harfinovian.submission1.R.layout.fragment_match
 import com.example.harfinovian.submission1.adapter.FavoriteAdapter
 import com.example.harfinovian.submission1.view.detail.DetailActivity
 import com.example.harfinovian.submission1.adapter.ScoreAdapter
-import com.example.harfinovian.submission1.model.Event
+import com.example.harfinovian.submission1.db.Favorite
 import com.example.harfinovian.submission1.model.Events
 import com.example.harfinovian.submission1.presenter.match.IMatchPresenter
 import com.example.harfinovian.submission1.presenter.match.MatchPresenterCompl
@@ -78,7 +77,7 @@ class MatchFragment : Fragment(), MatchView {
     }
 
     override fun showEventList(data: Events, view: View) {
-        event_list.adapter = ScoreAdapter(view.context, data.events){
+        event_list.adapter = ScoreAdapter(data.events){
             this.startActivity<DetailActivity>(
                     "idHome" to it.idHomeTeam,
                     "idAway" to it.idAwayTeam,
@@ -88,7 +87,7 @@ class MatchFragment : Fragment(), MatchView {
     }
 
     override fun showFavoriteList(data: List<Favorite>, view: View) {
-        event_list.adapter = FavoriteAdapter(view.context, data){
+        event_list.adapter = FavoriteAdapter(data){
             this.startActivity<DetailActivity>(
                     "idHome" to it.teamHomeId,
                     "idAway" to it.teamAwayId,

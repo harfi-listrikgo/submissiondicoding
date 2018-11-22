@@ -10,22 +10,22 @@ import com.example.harfinovian.submission1.model.Event
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_list.*
 
-class ScoreAdapter(val context: Context, private val items: List<Event>,
-                   val listener: (Event) -> Unit) : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
+class ScoreAdapter(private val items: List<Event>,
+                   private val listener: (Event) -> Unit) : RecyclerView.Adapter<ScoreAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):
             ViewHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(item_list, parent, false)
 
-        return ViewHolder(view, listener)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], listener)
 
     override fun getItemCount(): Int = items.size
 
-    class ViewHolder(override val containerView: View, listener: (Event) -> Unit) : RecyclerView.ViewHolder(containerView),
+    class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
             LayoutContainer {
 
         fun bind(items: Event, listener: (Event) -> Unit) = with(itemView) {
