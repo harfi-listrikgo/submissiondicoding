@@ -4,11 +4,13 @@ import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
+import android.support.test.espresso.contrib.NavigationViewActions
 import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
+import com.example.harfinovian.submission1.R
 import com.example.harfinovian.submission1.R.id.*
 import com.example.harfinovian.submission1.view.main.MainActivity
 import org.junit.Rule
@@ -25,6 +27,10 @@ class MainActivityTest {
 
     @Test
     fun testRecyclerViewBehaviour() {
+        onView(withId(bottom_navigation))
+                .perform(NavigationViewActions.navigateTo(R.id.next))
+        activityRule.activity.supportFragmentManager.beginTransaction()
+
         onView(withId(event_list))
                 .check(matches(isDisplayed()))
         onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
