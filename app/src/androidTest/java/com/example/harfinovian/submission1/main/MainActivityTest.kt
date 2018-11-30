@@ -1,7 +1,7 @@
 package com.example.harfinovian.submission1.main
 
+import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.Espresso.pressBack
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.NavigationViewActions
@@ -27,38 +27,56 @@ class MainActivityTest {
 
     @Test
     fun testRecyclerViewBehaviour() {
-        onView(withId(bottom_navigation))
-                .perform(NavigationViewActions.navigateTo(R.id.next))
-        activityRule.activity.supportFragmentManager.beginTransaction()
+        Thread.sleep(3000)
+        onView(withId(R.id.event_list)).check(matches(isDisplayed()))
 
-        onView(withId(event_list))
-                .check(matches(isDisplayed()))
-        onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
-        onView(withId(event_list)).perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click()))
+        Thread.sleep(1000)
+        onView(withId(R.id.event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
+        onView(withId(R.id.event_list)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click()))
+
+        Thread.sleep(1000)
+    }
+    @Test
+    fun playWithBottomNavigationView(){
+        Thread.sleep(1000)
+        onView(withId(R.id.next)).perform(click())
+
+        Thread.sleep(1000)
+        onView(withId(R.id.last)).perform(click())
+
+        Thread.sleep(1000)
+        onView(withId(R.id.favorites)).perform(click())
+
+        Thread.sleep(1000)
     }
 
     @Test
-    fun testAppBehaviour() {
-//        onView(withId(spinner))
-//                .check(matches(isDisplayed()))
-//        onView(withId(spinner)).perform(click())
-//        onView(withText("Spanish La Liga")).perform(click())
-//
-//        onView(withText("Barcelona"))
-//                .check(matches(isDisplayed()))
-//        onView(withText("Barcelona")).perform(click())
-//
-//        onView(withId(add_to_favorite))
-//                .check(matches(isDisplayed()))
-//        onView(withId(add_to_favorite)).perform(click())
-//        onView(withText("Added to favorite"))
-//                .check(matches(isDisplayed()))
-//        pressBack()
+    fun addRemoveFavorites() {
 
-        onView(withId(bottom_navigation))
-                .check(matches(isDisplayed()))
-        onView(withId(favorites)).perform(click())
+        Thread.sleep(1000)
+        onView(withId(R.id.event_list)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click()))
+
+        Thread.sleep(1000)
+        onView(withId(R.id.add_to_favorite)).check(matches(isDisplayed()))
+        onView(withId(R.id.add_to_favorite)).perform(click())
+
+        Thread.sleep(1000)
+        Espresso.pressBack()
+
+        Thread.sleep(1000)
+        onView(withId(R.id.favorites)).perform(click())
+
+        Thread.sleep(1000)
+        onView(withId(R.id.event_list)).perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
+        Thread.sleep(1000)
+        onView(withId(R.id.add_to_favorite)).check(matches(isDisplayed()))
+        onView(withId(R.id.add_to_favorite)).perform(click())
+
+        Thread.sleep(1000)
+        Espresso.pressBack()
+
+        Thread.sleep(1000)
     }
 
 }
