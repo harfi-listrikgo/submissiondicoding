@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.harfinovian.submission1.R.layout.item_list
-import com.example.harfinovian.submission1.db.Favorite
+import com.example.harfinovian.submission1.entity.db.Favorite
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_list.*
 
@@ -22,7 +22,7 @@ class FavoriteAdapter(private val items: List<Favorite>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], listener)
 
-    override fun getItemCount(): Int = items.size
+    override fun getItemCount(): Int = items!!.size
 
     class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
             LayoutContainer {

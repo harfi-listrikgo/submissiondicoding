@@ -1,5 +1,6 @@
 package com.example.harfinovian.submission1.api
 
+import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.model.Events
 import com.example.harfinovian.submission1.model.Teams
 import io.reactivex.Flowable

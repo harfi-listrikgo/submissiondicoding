@@ -1,4 +1,4 @@
-package com.example.harfinovian.submission1.db
+package com.example.harfinovian.submission1.entity.db
 
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase

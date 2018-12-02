@@ -6,6 +6,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import com.example.harfinovian.submission1.R
 import com.example.harfinovian.submission1.R.layout.activity_main
 import com.example.harfinovian.submission1.R.string.*
+import com.example.harfinovian.submission1.view.favorite.FavoriteFragment
 import com.example.harfinovian.submission1.view.fragment.MatchFragment
 
 class MainActivity : AppCompatActivity() {
@@ -54,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_container, MatchFragment().favmatch("fav"), MatchFragment::class.java.simpleName)
+                    .replace(R.id.main_container, FavoriteFragment(), FavoriteFragment::class.java.simpleName)
                     .commit()
         }
     }

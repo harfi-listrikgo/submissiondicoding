@@ -1,12 +1,7 @@
 package com.example.harfinovian.submission1.fragment
 
-import com.example.harfinovian.submission1.api.APIRepository
 import com.example.harfinovian.submission1.api.TheSportDBApi
-import com.example.harfinovian.submission1.model.Event
-import com.example.harfinovian.submission1.model.Events
-import com.example.harfinovian.submission1.presenter.match.MatchPresenterCompl
-import com.example.harfinovian.submission1.view.fragment.MatchView
-import com.google.gson.Gson
+import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
@@ -15,36 +10,25 @@ import org.mockito.MockitoAnnotations
 
 class MatchPresenterTest {
     @Mock
-    lateinit var view: MatchView
+    lateinit var footballRest: TheSportDBApi
 
-    @Mock
-    lateinit var apiRepository: APIRepository
-
-    @Mock
-    lateinit var gson: Gson
-
-    lateinit var presenter: MatchPresenterCompl
+    lateinit var matchRepositoryImpl: MatchRepositoryImpl
 
     @Before
     fun setupEnv() {
         MockitoAnnotations.initMocks(this)
-        presenter = MatchPresenterCompl(view)
+        matchRepositoryImpl = MatchRepositoryImpl(footballRest)
     }
 
     @Test
-    fun getLeagueAll() {
-        val data: List<Event> = mutableListOf()
-        val response = Events(data)
+    fun getNextMatch() {
+        matchRepositoryImpl.getUpcomingMatch()
+        Mockito.verify(footballRest).getNextEvent()
+    }
 
-        Mockito.`when`(gson.fromJson(apiRepository
-                .getClient(TheSportDBApi.),
-                LeagueResponse::class.java)
-        ).thenReturn(response)
-
-        presenter.getLeagueAll()
-
-        Mockito.verify(view).showLoading()
-        Mockito.verify(view).showLeagueList(response)
-        Mockito.verify(view).hideLoading()
+    @Test
+    fun getLastMatch() {
+        matchRepositoryImpl.getPastMatch()
+        Mockito.verify(footballRest).getPastEvent()
     }
 }

@@ -16,14 +16,16 @@ import com.example.harfinovian.submission1.R.id.add_to_favorite
 import com.example.harfinovian.submission1.R.layout.activity_detail
 import com.example.harfinovian.submission1.R.layout.text_prop_match_detail
 import com.example.harfinovian.submission1.R.menu.detail_menu
-import com.example.harfinovian.submission1.db.Favorite
-import com.example.harfinovian.submission1.db.database
+import com.example.harfinovian.submission1.api.APIRepository
+import com.example.harfinovian.submission1.api.TheSportDBApi
+import com.example.harfinovian.submission1.entity.db.Favorite
+import com.example.harfinovian.submission1.entity.db.database
+import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
 import com.example.harfinovian.submission1.model.Event
-import com.example.harfinovian.submission1.presenter.detail.DetailPresenterCompl
+import com.example.harfinovian.submission1.presenter.detail.DetailPresenter
 import com.example.harfinovian.submission1.presenter.detail.IDetailPresenter
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.text_prop_match_detail.view.*
-import kotlinx.coroutines.experimental.selects.select
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
@@ -52,7 +54,10 @@ class DetailActivity : AppCompatActivity(), DetailView {
 
         favoriteState()
 
-        iFragmentPresenter =  DetailPresenterCompl(this)
+        val service = APIRepository.getClient().create(TheSportDBApi::class.java)
+        val request = MatchRepositoryImpl(service)
+        val scheduler = AppSchedulerProvider()
+        iFragmentPresenter = DetailPresenter(this, request, scheduler)
         iFragmentPresenter?.getMatchDetail(id)
         iFragmentPresenter?.showLogo(idHome, home_img)
         iFragmentPresenter?.showLogo(idAway, away_img)
