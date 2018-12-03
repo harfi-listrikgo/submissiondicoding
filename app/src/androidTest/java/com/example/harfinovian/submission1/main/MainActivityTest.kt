@@ -3,6 +3,7 @@ package com.example.harfinovian.submission1.main
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onData
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
@@ -11,7 +12,10 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.v7.widget.RecyclerView
 import com.example.harfinovian.submission1.R
+import com.example.harfinovian.submission1.*
+import com.example.harfinovian.submission1.R.id.*
 import com.example.harfinovian.submission1.view.main.MainActivity
+import kotlinx.android.synthetic.main.fragment_match.view.*
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.Test
@@ -26,45 +30,65 @@ class MainActivityTest {
     @JvmField var activityRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun testRecyclerViewBehaviour() {
-        Thread.sleep(3000)
-        onView(withId(R.id.event_list)).check(matches(isDisplayed()))
+    fun mainActivityTest() {
 
-        Thread.sleep(1000)
-        onData(allOf()).inAdapterView(withId(R.id.event_list))
-                .perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(10))
+        delay()
+        onView(withId(event_list))
+                .check(matches(isDisplayed()))
+        delay()
+        onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
+        onView(withId(event_list)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
+        delay()
 
-        Thread.sleep(1000)
-        onData(allOf()).inAdapterView(withId(R.id.event_list))
-                .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click()))
-    }
-    @Test
-    fun playWithBottomNavigationView(){
-        onView(withId(R.id.next)).perform(click())
-        onView(withId(R.id.last)).perform(click())
-        onView(withId(R.id.favorites)).perform(click())
-    }
-
-    @Test
-    fun addRemoveFavorites() {
-
-        Thread.sleep(3000)
-        onData(allOf()).inAdapterView(withId(R.id.event_list))
-                .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(10, click()))
-        onView(withId(R.id.add_to_favorite)).check(matches(isDisplayed()))
-        onView(withId(R.id.add_to_favorite)).perform(click())
+        onView(withId(add_to_favorite)).perform(click())
 
         Espresso.pressBack()
+        delay()
 
-        Thread.sleep(2000)
-        onView(withId(R.id.favorites)).perform(click())
-        onData(allOf()).inAdapterView(withId(R.id.event_list))
-                .perform(RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-        onView(withId(R.id.add_to_favorite)).check(matches(isDisplayed()))
-        onView(withId(R.id.add_to_favorite)).perform(click())
+        onView(withId(next)).perform(click())
+
+        delay()
+        onView(withId(event_list))
+                .check(matches(isDisplayed()))
+        delay()
+        onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
+        onView(withId(event_list)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
+        delay()
+
+        onView(withId(add_to_favorite)).perform(click())
 
         Espresso.pressBack()
+        delay()
 
+        onView(withId(favorites)).perform(click())
+
+        delay()
+        onView(withId(event_list))
+                .check(matches(isDisplayed()))
+
+        onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+        onView(withId(event_list)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+        delay()
+
+        onView(withId(add_to_favorite)).perform(click())
+
+        Espresso.pressBack()
+        delay()
+
+        onView(withId(refreshLayout)).perform(ViewActions.swipeDown())
+
+        delay()
+    }
+
+    private fun delay(){
+        try {
+            Thread.sleep(2000)
+        } catch (e: InterruptedException) {
+            e.printStackTrace()
+        }
     }
 
 }

@@ -164,7 +164,7 @@ class DetailActivity : AppCompatActivity(), DetailView {
     }
 
     override fun showLogo(url: String?, imageView : ImageView) {
-        Glide.with(this).load(url).into(imageView)
+        Glide.with(applicationContext).load(url).into(imageView)
     }
 
     private fun addDynamicView(title: String?, homeProp: String?, awayProp: String?): LinearLayout {
