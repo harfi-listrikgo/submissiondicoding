@@ -2,103 +2,47 @@ package com.example.harfinovian.submission1.view.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import com.example.harfinovian.submission1.R.layout.fragment_match
-import com.example.harfinovian.submission1.adapter.FavoriteAdapter
-import com.example.harfinovian.submission1.view.detail.DetailActivity
-import com.example.harfinovian.submission1.adapter.ScoreAdapter
-import com.example.harfinovian.submission1.api.APIRepository
-import com.example.harfinovian.submission1.api.TheSportDBApi
-import com.example.harfinovian.submission1.entity.db.Favorite
-import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
-import com.example.harfinovian.submission1.model.Event
-import com.example.harfinovian.submission1.model.Events
-import com.example.harfinovian.submission1.presenter.match.IMatchPresenter
-import com.example.harfinovian.submission1.presenter.match.MatchPresenter
-import com.example.harfinovian.submission1.view.detail.AppSchedulerProvider
+import com.example.harfinovian.submission1.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_match.*
-import org.jetbrains.anko.support.v4.startActivity
 
-class MatchFragment : Fragment(), MatchView {
+class  MatchFragment : Fragment() {
 
-    private var refreshData: Boolean = false
-    private lateinit var iFragmentPresenter: IMatchPresenter
-
-    fun lastmatch(category: String): MatchFragment {
-        val myFragment = MatchFragment()
-
-        val args = Bundle()
-        args.putString("category", category)
-        myFragment.arguments = args
-
-        return myFragment
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = ViewPagerAdapter(childFragmentManager)
+        setHasOptionsMenu(true)
+        adapter.populateFragment(MatchNestedFragment().lastmatch("last"), "Last Match")
+        adapter.populateFragment(MatchNestedFragment().nextmatch("next"), "Upcoming")
+        view_pager.adapter = adapter
+        tab_layout.setupWithViewPager(view_pager)
     }
 
-    fun nextmatch(category: String): MatchFragment {
-        val myFragment = MatchFragment()
-
-        val args = Bundle()
-        args.putString("category", category)
-        myFragment.arguments = args
-
-        return myFragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        return inflater.inflate(fragment_match, container, false)
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        val service = APIRepository.getClient().create(TheSportDBApi::class.java)
-        val request = MatchRepositoryImpl(service)
-        val scheduler = AppSchedulerProvider()
-        iFragmentPresenter = MatchPresenter(this, request, scheduler)
-
-        val param = arguments!!.getString("category")
-
-        iFragmentPresenter.getFootballMatchData(param)
-        refreshLayout.setOnRefreshListener {
-            iFragmentPresenter.getFootballMatchData(param)
-        }
-        event_list.layoutManager = LinearLayoutManager(context)
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+//        inflater?.inflate(R.menu.menu_search, menu)
+//
+//        val searchView = menu?.findItem(R.id.actionSearch)?.actionView as SearchView?
+//
+//        searchView?.queryHint = "Search matches"
+//
+//        searchView?.setOnQueryTextListener(object : android.support.v7.widget.SearchView.OnQueryTextListener {
+//            override fun onQueryTextSubmit(query: String): Boolean {
+//                context?.startActivity<SearchMatchActivity>("query" to query)
+//                return false
+//            }
+//
+//            override fun onQueryTextChange(newText: String): Boolean {
+//
+//                return false
+//            }
+//        })
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-
-        val myFragment = inflater.inflate(fragment_match, container, false)
-
-        return myFragment
-    }
-
-    override fun showEventList(data: List<Event>) {
-        event_list.adapter = ScoreAdapter(data){
-            this.startActivity<DetailActivity>(
-                    "idHome" to it.idHomeTeam,
-                    "idAway" to it.idAwayTeam,
-                    "idEvent" to it.idEvent)
-        }
-        hideLoading()
-    }
-
-    override fun showFavoriteList(data: List<Favorite>) {
-        event_list.adapter = FavoriteAdapter(data){
-            this.startActivity<DetailActivity>(
-                    "idHome" to it.teamHomeId,
-                    "idAway" to it.teamAwayId,
-                    "idEvent" to it.eventId)
-        }
-        hideLoading()
-    }
-
-    override fun showLoading() {
-        refreshData = true
-        refreshLayout!!.setRefreshing(true)
-    }
-
-    override fun hideLoading() {
-        refreshData = false
-        refreshLayout.setRefreshing(false)
-    }
 }

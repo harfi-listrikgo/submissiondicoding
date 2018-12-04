@@ -1,31 +1,30 @@
-package com.example.harfinovian.submission1.presenter.detail
+package com.example.harfinovian.submission1.presenter.teamdetail
 
 import android.util.Log
 import android.widget.ImageView
-import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
-import com.example.harfinovian.submission1.model.Events
+import com.example.harfinovian.submission1.entity.repository.TeamRepositoryImpl
 import com.example.harfinovian.submission1.model.Teams
 import com.example.harfinovian.submission1.utlis.SchedulerProvider
-import com.example.harfinovian.submission1.view.detail.DetailView
+import com.example.harfinovian.submission1.view.teamdetail.TeamDetailView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subscribers.ResourceSubscriber
 
-class DetailPresenter(private var detailView: DetailView,
-                      private val matchRepositoryImpl: MatchRepositoryImpl,
-                      private val scheduler: SchedulerProvider) : IDetailPresenter {
+class TeamDetailPresenter(private var detailView: TeamDetailView,
+                          private val teamRepositoryImpl: TeamRepositoryImpl,
+                          private val scheduler: SchedulerProvider) : ITeamDetailPresenter {
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun getMatchDetail(idEvent: String) {
-        compositeDisposable.add(matchRepositoryImpl.getEventById(idEvent)
+    override fun getTeamDetail(idTeam: String) {
+        compositeDisposable.add(teamRepositoryImpl.getTeam(idTeam)
                 .observeOn(scheduler.ui())
                 .subscribeOn(scheduler.io())
-                .subscribeWith(object : ResourceSubscriber<Events>(){
+                .subscribeWith(object : ResourceSubscriber<Teams>(){
                     override fun onComplete() {
                     }
 
-                    override fun onNext(t: Events) {
-                        detailView.bindView(t.events[0])
+                    override fun onNext(t: Teams) {
+                        detailView.bindView(t.teams[0])
                     }
 
                     override fun onError(e: Throwable) {
@@ -37,7 +36,7 @@ class DetailPresenter(private var detailView: DetailView,
     }
 
     override fun showLogo(param: String, imageView: ImageView) {
-        compositeDisposable.add(matchRepositoryImpl.getTeam(param)
+        compositeDisposable.add(teamRepositoryImpl.getTeam(param)
                 .observeOn(scheduler.ui())
                 .subscribeOn(scheduler.io())
                 .subscribeWith(object : ResourceSubscriber<Teams>(){

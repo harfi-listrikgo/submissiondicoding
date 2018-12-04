@@ -17,4 +17,6 @@ class MatchRepositoryImpl(private val footballRest: TheSportDBApi) : MatchReposi
 
     override fun getTeam(id: String): Flowable<Teams> = footballRest.getTeam(id)
 
+    override fun getListTeam(idLeague: String): Flowable<Teams> = footballRest.getAllTeam("")
+
 }

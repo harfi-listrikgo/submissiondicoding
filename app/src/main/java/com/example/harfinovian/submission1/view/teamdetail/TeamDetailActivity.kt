@@ -1,4 +1,4 @@
-package com.example.harfinovian.submission1.view.detail
+package com.example.harfinovian.submission1.view.teamdetail
 
 import android.database.sqlite.SQLiteConstraintException
 import android.support.v7.app.AppCompatActivity
@@ -20,9 +20,10 @@ import com.example.harfinovian.submission1.api.APIRepository
 import com.example.harfinovian.submission1.api.TheSportDBApi
 import com.example.harfinovian.submission1.entity.db.Favorite
 import com.example.harfinovian.submission1.entity.db.database
-import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
-import com.example.harfinovian.submission1.model.Event
-import com.example.harfinovian.submission1.presenter.detail.DetailPresenter
+import com.example.harfinovian.submission1.entity.repository.TeamRepositoryImpl
+import com.example.harfinovian.submission1.model.Team
+import com.example.harfinovian.submission1.presenter.teamdetail.ITeamDetailPresenter
+import com.example.harfinovian.submission1.presenter.teamdetail.TeamDetailPresenter
 import com.example.harfinovian.submission1.utlis.AppSchedulerProvider
 import kotlinx.android.synthetic.main.activity_detail.*
 import kotlinx.android.synthetic.main.text_prop_match_detail.view.*
@@ -32,13 +33,13 @@ import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
 
-class DetailActivity : AppCompatActivity(), DetailView {
+class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
 
-    private var iFragmentPresenter: DetailPresenter? = null
+    private var iFragmentPresenter: ITeamDetailPresenter? = null
     private var menuItem: Menu? = null
     private var isFavorite: Boolean = false
     private lateinit var id: String
-    private var match: Event? = null
+    private var match: Team? = null
     private lateinit var idHome: String
     private lateinit var idAway: String
 
@@ -55,10 +56,10 @@ class DetailActivity : AppCompatActivity(), DetailView {
         favoriteState()
 
         val service = APIRepository.getClient().create(TheSportDBApi::class.java)
-        val request = MatchRepositoryImpl(service)
+        val request = TeamRepositoryImpl(service)
         val scheduler = AppSchedulerProvider()
-        iFragmentPresenter = DetailPresenter(this, request, scheduler)
-        iFragmentPresenter?.getMatchDetail(id)
+        iFragmentPresenter = TeamDetailPresenter(this, request, scheduler)
+        iFragmentPresenter?.getTeamDetail(id)
         iFragmentPresenter?.showLogo(idHome, home_img)
         iFragmentPresenter?.showLogo(idAway, away_img)
     }
@@ -101,17 +102,17 @@ class DetailActivity : AppCompatActivity(), DetailView {
 
     private fun addToFavorite(){
         try {
-            database.use {
-                insert(Favorite.TABLE_FAVORITE,
-                        Favorite.ID_EVENT to match?.idEvent,
-                        Favorite.TEAM_HOME_ID to match?.idHomeTeam,
-                        Favorite.TEAM_AWAY_ID to match?.idAwayTeam,
-                        Favorite.HOME_TEAM to match?.strHomeTeam,
-                        Favorite.AWAY_TEAM to match?.strAwayTeam,
-                        Favorite.SCORE_HOME_TEAM to match?.intHomeScore,
-                        Favorite.SCORE_AWAY_TEAM to match?.intAwayScore,
-                        Favorite.DATE to match?.dateEvent)
-            }
+//            database.use {
+//                insert(Favorite.TABLE_FAVORITE,
+//                        Favorite.ID_EVENT to match?.idEvent,
+//                        Favorite.TEAM_HOME_ID to match?.idHomeTeam,
+//                        Favorite.TEAM_AWAY_ID to match?.idAwayTeam,
+//                        Favorite.HOME_TEAM to match?.strHomeTeam,
+//                        Favorite.AWAY_TEAM to match?.strAwayTeam,
+//                        Favorite.SCORE_HOME_TEAM to match?.intHomeScore,
+//                        Favorite.SCORE_AWAY_TEAM to match?.intAwayScore,
+//                        Favorite.DATE to match?.dateEvent)
+//            }
             snackbar(swipeRefresh, "Added to favorite").show()
         } catch (e: SQLiteConstraintException){
             snackbar(swipeRefresh, e.localizedMessage).show()
@@ -140,27 +141,27 @@ class DetailActivity : AppCompatActivity(), DetailView {
     override fun setToolbar() {
         setSupportActionBar(main_toolbar)
         val ab = supportActionBar
-        ab?.setTitle("Match Detail")
+        ab?.setTitle("Team Detail")
         ab?.setDisplayShowHomeEnabled(true)
         ab?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun bindView(res: Event) {
+    override fun bindView(res: Team) {
         match = res
 
-        date_txt.text = res.dateEvent
-        score_home_txt.text = res.intHomeScore
-        score_away_txt.text = res.intAwayScore
-        home_team_txt.text = res.strHomeTeam
-        away_team_txt.text = res.strAwayTeam
-
-        content_ly.addView(addDynamicView("Goals", res.strHomeGoalDetails, res.strAwayGoalDetails))
-        content_ly.addView(addDynamicView("Shots", res.intHomeShots, res.intAwayShots))
-        detail_ly.addView(addDynamicView("Goal Keeper", res.strHomeLineupGoalkeeper, res.strAwayLineupGoalkeeper))
-        detail_ly.addView(addDynamicView("Defense", res.strHomeLineupDefense, res.strAwayLineupDefense))
-        detail_ly.addView(addDynamicView("Midfield", res.strHomeLineupMidfield, res.strAwayLineupMidfield))
-        detail_ly.addView(addDynamicView("Forward", res.strHomeLineupForward, res.strAwayLineupForward))
-        detail_ly.addView(addDynamicView("Subtitutes", res.strHomeLineupSubstitutes, res.strAwayLineupSubstitutes))
+//        date_txt.text = res.dateEvent
+//        score_home_txt.text = res.intHomeScore
+//        score_away_txt.text = res.intAwayScore
+//        home_team_txt.text = res.strHomeTeam
+//        away_team_txt.text = res.strAwayTeam
+//
+//        content_ly.addView(addDynamicView("Goals", res.strHomeGoalDetails, res.strAwayGoalDetails))
+//        content_ly.addView(addDynamicView("Shots", res.intHomeShots, res.intAwayShots))
+//        detail_ly.addView(addDynamicView("Goal Keeper", res.strHomeLineupGoalkeeper, res.strAwayLineupGoalkeeper))
+//        detail_ly.addView(addDynamicView("Defense", res.strHomeLineupDefense, res.strAwayLineupDefense))
+//        detail_ly.addView(addDynamicView("Midfield", res.strHomeLineupMidfield, res.strAwayLineupMidfield))
+//        detail_ly.addView(addDynamicView("Forward", res.strHomeLineupForward, res.strAwayLineupForward))
+//        detail_ly.addView(addDynamicView("Subtitutes", res.strHomeLineupSubstitutes, res.strAwayLineupSubstitutes))
     }
 
     override fun showLogo(url: String?, imageView : ImageView) {

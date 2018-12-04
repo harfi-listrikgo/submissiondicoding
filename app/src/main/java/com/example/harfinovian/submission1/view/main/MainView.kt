@@ -4,6 +4,6 @@ import android.os.Bundle
 
 interface MainView {
     fun loadLastFragment(savedInstanceState: Bundle?)
-    fun loadNextFragment(savedInstanceState: Bundle?)
+    fun loadTeamFragment(savedInstanceState: Bundle?)
     fun loadFavFragment(savedInstanceState: Bundle?)
 }

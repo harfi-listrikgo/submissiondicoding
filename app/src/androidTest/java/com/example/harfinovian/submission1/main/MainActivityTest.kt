@@ -15,7 +15,7 @@ import com.example.harfinovian.submission1.R
 import com.example.harfinovian.submission1.*
 import com.example.harfinovian.submission1.R.id.*
 import com.example.harfinovian.submission1.view.main.MainActivity
-import kotlinx.android.synthetic.main.fragment_match.view.*
+import kotlinx.android.synthetic.main.fragment_nested_match.view.*
 import org.hamcrest.core.AllOf.allOf
 import org.junit.Rule
 import org.junit.Test

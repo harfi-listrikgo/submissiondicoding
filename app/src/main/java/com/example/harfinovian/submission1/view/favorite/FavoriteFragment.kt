@@ -6,14 +6,14 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.harfinovian.submission1.R.layout.fragment_match
+import com.example.harfinovian.submission1.R.layout.fragment_nested_match
 import com.example.harfinovian.submission1.adapter.FavoriteAdapter
-import com.example.harfinovian.submission1.view.detail.DetailActivity
+import com.example.harfinovian.submission1.view.teamdetail.TeamDetailActivity
 import com.example.harfinovian.submission1.entity.db.Favorite
 import com.example.harfinovian.submission1.entity.repository.ILocalPresenter
 import com.example.harfinovian.submission1.entity.repository.LocalRepositoryCompl
 import com.example.harfinovian.submission1.view.fragment.FavoriteView
-import kotlinx.android.synthetic.main.fragment_match.*
+import kotlinx.android.synthetic.main.fragment_nested_match.*
 import org.jetbrains.anko.support.v4.startActivity
 
 class FavoriteFragment : Fragment(), FavoriteView {
@@ -35,14 +35,14 @@ class FavoriteFragment : Fragment(), FavoriteView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        val myFragment = inflater.inflate(fragment_match, container, false)
+        val myFragment = inflater.inflate(fragment_nested_match, container, false)
 
         return myFragment
     }
 
     override fun showFavoriteList(data: List<Favorite>) {
         event_list.adapter = FavoriteAdapter(data){
-            this.startActivity<DetailActivity>(
+            this.startActivity<TeamDetailActivity>(
                     "idHome" to it.teamHomeId,
                     "idAway" to it.teamAwayId,
                     "idEvent" to it.eventId)

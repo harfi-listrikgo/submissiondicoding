@@ -3,7 +3,7 @@ package com.example.harfinovian.submission1.feature
 import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
 import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.model.Events
-import com.example.harfinovian.submission1.presenter.match.MatchPresenter
+import com.example.harfinovian.submission1.presenter.match.TeamPresenter
 import com.example.harfinovian.submission1.utlis.SchedulerProvider
 import com.example.harfinovian.submission1.utlis.TestSchedulerProvider
 import com.example.harfinovian.submission1.view.fragment.MatchView
@@ -23,7 +23,7 @@ class NextMatchPresenterTest {
 
     lateinit var scheduler: SchedulerProvider
 
-    lateinit var mPresenter: MatchPresenter
+    lateinit var mPresenter: TeamPresenter
 
     lateinit var match : Events
 
@@ -37,7 +37,7 @@ class NextMatchPresenterTest {
         scheduler = TestSchedulerProvider()
         match = Events(event)
         footballMatch = Flowable.just(match)
-        mPresenter = MatchPresenter(mView, matchRepositoryImpl, scheduler)
+        mPresenter = TeamPresenter(mView, matchRepositoryImpl, scheduler)
         Mockito.`when`(matchRepositoryImpl.getUpcomingMatch()).thenReturn(footballMatch)
     }
 

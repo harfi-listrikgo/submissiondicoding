@@ -8,8 +8,10 @@ import com.example.harfinovian.submission1.R.layout.activity_main
 import com.example.harfinovian.submission1.R.string.*
 import com.example.harfinovian.submission1.view.favorite.FavoriteFragment
 import com.example.harfinovian.submission1.view.fragment.MatchFragment
+import com.example.harfinovian.submission1.view.fragment.MatchNestedFragment
+import com.example.harfinovian.submission1.view.team.TeamFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,8 +23,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.last -> {
                     loadLastFragment(savedInstanceState)
                 }
-                R.id.next -> {
-                    loadNextFragment(savedInstanceState)
+                R.id.team -> {
+                    loadTeamFragment(savedInstanceState)
                 }
                 R.id.favorites -> {
                     loadFavFragment(savedInstanceState)
@@ -33,25 +35,25 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.selectedItemId = R.id.last
     }
 
-    private fun loadLastFragment(savedInstanceState: Bundle?) {
+    override fun loadLastFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_container, MatchFragment().lastmatch("last"), MatchFragment::class.java.simpleName)
+                    .replace(R.id.main_container, MatchFragment(), MatchNestedFragment::class.java.simpleName)
                     .commit()
         }
     }
 
-    private fun loadNextFragment(savedInstanceState: Bundle?) {
+    override fun loadTeamFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_container, MatchFragment().nextmatch("next"), MatchFragment::class.java.simpleName)
+                    .replace(R.id.main_container, TeamFragment(), TeamFragment::class.java.simpleName)
                     .commit()
         }
     }
 
-    private fun loadFavFragment(savedInstanceState: Bundle?) {
+    override fun loadFavFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
