@@ -8,7 +8,6 @@ import com.example.harfinovian.submission1.R.layout.activity_main
 import com.example.harfinovian.submission1.R.string.*
 import com.example.harfinovian.submission1.view.favorite.FavoriteFragment
 import com.example.harfinovian.submission1.view.fragment.ChildMatchFragment
-import com.example.harfinovian.submission1.view.fragment.MatchFragment
 
 class MainActivity : AppCompatActivity(), MainView {
 

@@ -6,8 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.harfinovian.submission1.R.layout.fragment_child_match
-import com.example.harfinovian.submission1.R.layout.fragment_match
+import com.example.harfinovian.submission1.R.layout.fragment_match_nested
 import com.example.harfinovian.submission1.adapter.FavoriteAdapter
 import com.example.harfinovian.submission1.view.detail.DetailActivity
 import com.example.harfinovian.submission1.adapter.ScoreAdapter
@@ -16,12 +15,10 @@ import com.example.harfinovian.submission1.api.TheSportDBApi
 import com.example.harfinovian.submission1.entity.db.Favorite
 import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
 import com.example.harfinovian.submission1.model.Event
-import com.example.harfinovian.submission1.model.Events
 import com.example.harfinovian.submission1.presenter.match.IMatchPresenter
 import com.example.harfinovian.submission1.presenter.match.MatchPresenter
 import com.example.harfinovian.submission1.view.detail.AppSchedulerProvider
-import kotlinx.android.synthetic.main.fragment_child_match.*
-import kotlinx.android.synthetic.main.fragment_match.*
+import kotlinx.android.synthetic.main.fragment_match_nested.*
 import org.jetbrains.anko.support.v4.startActivity
 
 class ChildMatchFragment : Fragment(), MatchView {
@@ -49,6 +46,14 @@ class ChildMatchFragment : Fragment(), MatchView {
         return myFragment
     }
 
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        super.onCreateView(inflater, container, savedInstanceState)
+
+        val myFragment = inflater.inflate(fragment_match_nested, container, false)
+
+        return myFragment
+    }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -64,14 +69,6 @@ class ChildMatchFragment : Fragment(), MatchView {
             iFragmentPresenter.getFootballMatchData(param)
         }
         event_list.layoutManager = LinearLayoutManager(context)
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-
-        val myFragment = inflater.inflate(fragment_child_match, container, false)
-
-        return myFragment
     }
 
     override fun showEventList(data: List<Event>) {
