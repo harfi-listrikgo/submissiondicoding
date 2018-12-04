@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.harfinovian.submission1.R.layout.fragment_child_match
 import com.example.harfinovian.submission1.R.layout.fragment_match
 import com.example.harfinovian.submission1.adapter.FavoriteAdapter
 import com.example.harfinovian.submission1.view.detail.DetailActivity
@@ -68,7 +69,7 @@ class ChildMatchFragment : Fragment(), MatchView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        val myFragment = inflater.inflate(fragment_match, container, false)
+        val myFragment = inflater.inflate(fragment_child_match, container, false)
 
         return myFragment
     }

@@ -7,9 +7,10 @@ import com.example.harfinovian.submission1.R
 import com.example.harfinovian.submission1.R.layout.activity_main
 import com.example.harfinovian.submission1.R.string.*
 import com.example.harfinovian.submission1.view.favorite.FavoriteFragment
+import com.example.harfinovian.submission1.view.fragment.ChildMatchFragment
 import com.example.harfinovian.submission1.view.fragment.MatchFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainView {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,25 +34,25 @@ class MainActivity : AppCompatActivity() {
         bottom_navigation.selectedItemId = R.id.last
     }
 
-    private fun loadLastFragment(savedInstanceState: Bundle?) {
+    override fun loadLastFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_container, MatchFragment(), MatchFragment::class.java.simpleName)
+                    .replace(R.id.main_container, ChildMatchFragment().lastmatch("last"), ChildMatchFragment::class.java.simpleName)
                     .commit()
         }
     }
 
-    private fun loadNextFragment(savedInstanceState: Bundle?) {
+    override fun loadNextFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_container, MatchFragment(), MatchFragment::class.java.simpleName)
+                    .replace(R.id.main_container, ChildMatchFragment().nextmatch("last"), ChildMatchFragment::class.java.simpleName)
                     .commit()
         }
     }
 
-    private fun loadFavFragment(savedInstanceState: Bundle?) {
+    override fun loadFavFragment(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()

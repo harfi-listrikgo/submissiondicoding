@@ -1,6 +1,6 @@
 package com.example.harfinovian.submission1.view.detail
 
-import com.example.harfinovian.submission1.utlis.SchedulerProvider
+import com.example.harfinovian.submission1.utils.SchedulerProvider
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

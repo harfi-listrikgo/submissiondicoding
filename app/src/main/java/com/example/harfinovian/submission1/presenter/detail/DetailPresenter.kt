@@ -2,18 +2,12 @@ package com.example.harfinovian.submission1.presenter.detail
 
 import android.util.Log
 import android.widget.ImageView
-import com.example.harfinovian.submission1.api.APIRepository
-import com.example.harfinovian.submission1.api.TheSportDBApi
 import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
-import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.model.Events
-import com.example.harfinovian.submission1.model.Team
 import com.example.harfinovian.submission1.model.Teams
-import com.example.harfinovian.submission1.utlis.SchedulerProvider
+import com.example.harfinovian.submission1.utils.SchedulerProvider
 import com.example.harfinovian.submission1.view.detail.DetailView
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subscribers.ResourceSubscriber
 
 class DetailPresenter(private var detailView: DetailView,

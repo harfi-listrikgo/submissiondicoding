@@ -4,8 +4,8 @@ import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
 import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.model.Events
 import com.example.harfinovian.submission1.presenter.match.MatchPresenter
-import com.example.harfinovian.submission1.utlis.SchedulerProvider
-import com.example.harfinovian.submission1.utlis.TestSchedulerProvider
+import com.example.harfinovian.submission1.utils.SchedulerProvider
+import com.example.harfinovian.submission1.utils.TestSchedulerProvider
 import com.example.harfinovian.submission1.view.fragment.MatchView
 import io.reactivex.Flowable
 import org.junit.Before

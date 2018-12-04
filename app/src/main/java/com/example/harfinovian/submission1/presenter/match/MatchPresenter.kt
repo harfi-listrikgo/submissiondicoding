@@ -2,7 +2,7 @@ package com.example.harfinovian.submission1.presenter.match
 
 import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
 import com.example.harfinovian.submission1.model.Events
-import com.example.harfinovian.submission1.utlis.SchedulerProvider
+import com.example.harfinovian.submission1.utils.SchedulerProvider
 import com.example.harfinovian.submission1.view.fragment.MatchView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subscribers.ResourceSubscriber

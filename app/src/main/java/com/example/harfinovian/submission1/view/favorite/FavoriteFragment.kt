@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.harfinovian.submission1.R.layout.fragment_child_match
 import com.example.harfinovian.submission1.R.layout.fragment_match
 import com.example.harfinovian.submission1.adapter.FavoriteAdapter
 import com.example.harfinovian.submission1.view.detail.DetailActivity
@@ -13,6 +14,7 @@ import com.example.harfinovian.submission1.entity.db.Favorite
 import com.example.harfinovian.submission1.entity.repository.ILocalPresenter
 import com.example.harfinovian.submission1.entity.repository.LocalRepositoryCompl
 import com.example.harfinovian.submission1.view.fragment.FavoriteView
+import kotlinx.android.synthetic.main.fragment_child_match.*
 import kotlinx.android.synthetic.main.fragment_match.*
 import org.jetbrains.anko.support.v4.startActivity
 
@@ -35,7 +37,7 @@ class FavoriteFragment : Fragment(), FavoriteView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        val myFragment = inflater.inflate(fragment_match, container, false)
+        val myFragment = inflater.inflate(fragment_child_match, container, false)
 
         return myFragment
     }

@@ -1,4 +1,4 @@
-package com.example.harfinovian.submission1.utlis
+package com.example.harfinovian.submission1.utils
 
 import io.reactivex.Scheduler
 
