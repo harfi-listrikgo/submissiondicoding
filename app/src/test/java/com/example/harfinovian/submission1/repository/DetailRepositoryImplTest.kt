@@ -1,4 +1,4 @@
-package com.example.harfinovian.submission1.detail
+package com.example.harfinovian.submission1.repository
 
 import com.example.harfinovian.submission1.api.TheSportDBApi
 import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
@@ -7,7 +7,7 @@ import org.junit.Test
 import org.mockito.Mock
 import org.mockito.MockitoAnnotations
 
-class DetailPresenterTest {
+class DetailRepositoryImplTest {
 
     @Mock
     lateinit var footballRest: TheSportDBApi
@@ -21,6 +21,6 @@ class DetailPresenterTest {
 
     @Test
     fun getMatchDetail() {
-        matchRepositoryImpl.getEventById("576597")
+        matchRepositoryImpl.getEventById("576606")
     }
 }

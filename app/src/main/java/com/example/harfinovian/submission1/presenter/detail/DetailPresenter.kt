@@ -31,7 +31,7 @@ class DetailPresenter(private var detailView: DetailView,
                     }
 
                     override fun onNext(t: Events) {
-                        detailView.bindView(t.events.get(0))
+                        detailView.bindView(t.events[0])
                     }
 
                     override fun onError(e: Throwable) {

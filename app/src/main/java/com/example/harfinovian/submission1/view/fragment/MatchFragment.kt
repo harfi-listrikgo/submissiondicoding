@@ -14,6 +14,7 @@ import com.example.harfinovian.submission1.api.APIRepository
 import com.example.harfinovian.submission1.api.TheSportDBApi
 import com.example.harfinovian.submission1.entity.db.Favorite
 import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
+import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.model.Events
 import com.example.harfinovian.submission1.presenter.match.IMatchPresenter
 import com.example.harfinovian.submission1.presenter.match.MatchPresenter
@@ -71,8 +72,8 @@ class MatchFragment : Fragment(), MatchView {
         return myFragment
     }
 
-    override fun showEventList(data: Events) {
-        event_list.adapter = ScoreAdapter(data.events){
+    override fun showEventList(data: List<Event>) {
+        event_list.adapter = ScoreAdapter(data){
             this.startActivity<DetailActivity>(
                     "idHome" to it.idHomeTeam,
                     "idAway" to it.idAwayTeam,

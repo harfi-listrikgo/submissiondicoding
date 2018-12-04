@@ -22,7 +22,7 @@ class FavoriteAdapter(private val items: List<Favorite>,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) = holder.bind(items[position], listener)
 
-    override fun getItemCount(): Int = items!!.size
+    override fun getItemCount(): Int = items.size
 
     class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView),
             LayoutContainer {

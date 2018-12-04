@@ -1,4 +1,4 @@
-package com.example.harfinovian.submission1.fragment
+package com.example.harfinovian.submission1.repository
 
 import com.example.harfinovian.submission1.api.TheSportDBApi
 import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
@@ -8,7 +8,7 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
-class MatchPresenterTest {
+class MatchRepositoryImplTest {
     @Mock
     lateinit var footballRest: TheSportDBApi
 

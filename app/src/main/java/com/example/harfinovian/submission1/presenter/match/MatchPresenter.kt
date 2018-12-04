@@ -25,7 +25,7 @@ class MatchPresenter(val mView : MatchView,
                         }
 
                         override fun onNext(t: Events) {
-                            mView.showEventList(t)
+                            mView.showEventList(t.events)
                         }
 
                         override fun onError(e: Throwable) {
@@ -44,7 +44,7 @@ class MatchPresenter(val mView : MatchView,
                         }
 
                         override fun onNext(t: Events) {
-                            mView.showEventList(t)
+                            mView.showEventList(t.events)
                         }
 
                         override fun onError(e: Throwable) {
