@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.last -> {
                     loadLastFragment(savedInstanceState)
                 }
-                R.id.next -> {
+                R.id.teams -> {
                     loadNextFragment(savedInstanceState)
                 }
                 R.id.favorites -> {
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_container, MatchFragment().lastmatch("last"), MatchFragment::class.java.simpleName)
+                    .replace(R.id.main_container, MatchFragment(), MatchFragment::class.java.simpleName)
                     .commit()
         }
     }
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_container, MatchFragment().nextmatch("next"), MatchFragment::class.java.simpleName)
+                    .replace(R.id.main_container, MatchFragment(), MatchFragment::class.java.simpleName)
                     .commit()
         }
     }
