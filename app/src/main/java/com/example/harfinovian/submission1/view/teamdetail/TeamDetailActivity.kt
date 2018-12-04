@@ -13,9 +13,9 @@ import com.bumptech.glide.Glide
 import com.example.harfinovian.submission1.R.drawable.ic_add_to_favorites
 import com.example.harfinovian.submission1.R.drawable.ic_added_to_favorites
 import com.example.harfinovian.submission1.R.id.add_to_favorite
-import com.example.harfinovian.submission1.R.layout.activity_detail
-import com.example.harfinovian.submission1.R.layout.text_prop_match_detail
+import com.example.harfinovian.submission1.R.layout.*
 import com.example.harfinovian.submission1.R.menu.detail_menu
+import com.example.harfinovian.submission1.adapter.ViewPagerAdapter
 import com.example.harfinovian.submission1.api.APIRepository
 import com.example.harfinovian.submission1.api.TheSportDBApi
 import com.example.harfinovian.submission1.entity.db.Favorite
@@ -25,11 +25,11 @@ import com.example.harfinovian.submission1.model.Team
 import com.example.harfinovian.submission1.presenter.teamdetail.ITeamDetailPresenter
 import com.example.harfinovian.submission1.presenter.teamdetail.TeamDetailPresenter
 import com.example.harfinovian.submission1.utlis.AppSchedulerProvider
-import kotlinx.android.synthetic.main.activity_detail.*
+import com.example.harfinovian.submission1.view.fragment.MatchNestedFragment
+import kotlinx.android.synthetic.main.activity_team_detail.*
 import kotlinx.android.synthetic.main.text_prop_match_detail.view.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
-import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
 
@@ -40,18 +40,21 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
     private var isFavorite: Boolean = false
     private lateinit var id: String
     private var match: Team? = null
-    private lateinit var idHome: String
-    private lateinit var idAway: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(activity_detail)
+        setContentView(activity_team_detail)
 
         setToolbar()
 
-        idHome = intent.getStringExtra("idHome")
-        idAway = intent.getStringExtra("idAway")
-        id = intent.getStringExtra("idEvent")
+        id = intent.getStringExtra("idTeam")
+
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+
+        adapter.populateFragment(MatchNestedFragment().lastmatch("last"), "Last Match")
+        adapter.populateFragment(MatchNestedFragment().nextmatch("next"), "Upcoming")
+        view_pager.adapter = adapter
+        tab_layout.setupWithViewPager(view_pager)
 
         favoriteState()
 
@@ -60,8 +63,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
         val scheduler = AppSchedulerProvider()
         iFragmentPresenter = TeamDetailPresenter(this, request, scheduler)
         iFragmentPresenter?.getTeamDetail(id)
-        iFragmentPresenter?.showLogo(idHome, home_img)
-        iFragmentPresenter?.showLogo(idAway, away_img)
+        iFragmentPresenter?.showLogo(id, team_img)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

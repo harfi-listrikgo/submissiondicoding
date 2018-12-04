@@ -75,8 +75,7 @@ class TeamFragment : Fragment(), TeamView {
     override fun showTeamList(data: List<Team>) {
         team_list.adapter = TeamAdapter(data){
             this.startActivity<TeamDetailActivity>(
-                    "idHome" to it.idTeam,
-                    "idAway" to it.idLeague)
+                    "idTeam" to it.idTeam)
         }
         hideLoading()
     }
