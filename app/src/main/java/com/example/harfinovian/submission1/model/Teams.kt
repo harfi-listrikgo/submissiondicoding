@@ -4,7 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 data class Teams (
-        var teams: List<Team> = listOf()
+        var teams: List<Team> = listOf(),
+        var team: List<Team> = listOf()
 )
 
 @Parcelize

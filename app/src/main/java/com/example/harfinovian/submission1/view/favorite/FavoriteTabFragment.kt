@@ -14,6 +14,7 @@ import com.example.harfinovian.submission1.entity.db.Favorite
 import com.example.harfinovian.submission1.entity.db.FavoriteTeam
 import com.example.harfinovian.submission1.entity.repository.ILocalPresenter
 import com.example.harfinovian.submission1.entity.repository.LocalRepositoryCompl
+import com.example.harfinovian.submission1.view.detail.DetailActivity
 import kotlinx.android.synthetic.main.fragment_nested_match.*
 import org.jetbrains.anko.support.v4.startActivity
 
@@ -74,7 +75,7 @@ class FavoriteTabFragment : Fragment(), FavoriteView {
 
     override fun showFavoriteList(data: List<Favorite>) {
         event_list.adapter = FavoriteAdapter(data){
-            this.startActivity<TeamDetailActivity>(
+            this.startActivity<DetailActivity>(
                     "idHome" to it.teamHomeId,
                     "idAway" to it.teamAwayId,
                     "idEvent" to it.eventId)

@@ -4,6 +4,7 @@ import android.database.sqlite.SQLiteConstraintException
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -31,6 +32,8 @@ import org.jetbrains.anko.db.delete
 import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
+import org.jetbrains.anko.getStackTraceString
+import java.lang.Exception
 
 class DetailActivity : AppCompatActivity(), DetailView {
 
@@ -48,19 +51,23 @@ class DetailActivity : AppCompatActivity(), DetailView {
 
         setToolbar()
 
-        idHome = intent.getStringExtra("idHome")
-        idAway = intent.getStringExtra("idAway")
-        id = intent.getStringExtra("idEvent")
+        try{
+            idHome = intent.getStringExtra("idHome")
+            idAway = intent.getStringExtra("idAway")
+            id = intent.getStringExtra("idEvent")
 
-        favoriteState()
+            favoriteState()
 
-        val service = APIRepository.getClient().create(TheSportDBApi::class.java)
-        val request = MatchRepositoryImpl(service)
-        val scheduler = AppSchedulerProvider()
-        iFragmentPresenter = DetailPresenter(this, request, scheduler)
-        iFragmentPresenter?.getMatchDetail(id)
-        iFragmentPresenter?.showLogo(idHome, home_img)
-        iFragmentPresenter?.showLogo(idAway, away_img)
+            val service = APIRepository.getClient().create(TheSportDBApi::class.java)
+            val request = MatchRepositoryImpl(service)
+            val scheduler = AppSchedulerProvider()
+            iFragmentPresenter = DetailPresenter(this, request, scheduler)
+            iFragmentPresenter?.getMatchDetail(id)
+            iFragmentPresenter?.showLogo(idHome, home_img)
+            iFragmentPresenter?.showLogo(idAway, away_img)
+        } catch (e :Exception){
+            Log.e("Error", e.getStackTraceString())
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

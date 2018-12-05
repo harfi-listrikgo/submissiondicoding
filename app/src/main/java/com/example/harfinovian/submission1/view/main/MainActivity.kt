@@ -17,7 +17,8 @@ class MainActivity : AppCompatActivity(), MainView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
-        main_toolbar.setTitle(app_name)
+
+        setSupportActionBar(main_toolbar)
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

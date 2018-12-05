@@ -46,41 +46,41 @@ class MainActivityTest {
         Espresso.pressBack()
         delay()
 
-        onView(withId(next)).perform(click())
-
-        delay()
-        onView(withId(event_list))
-                .check(matches(isDisplayed()))
-        delay()
-        onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
-        onView(withId(event_list)).perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
-        delay()
-
-        onView(withId(add_to_favorite)).perform(click())
-
-        Espresso.pressBack()
-        delay()
-
-        onView(withId(favorites)).perform(click())
-
-        delay()
-        onView(withId(event_list))
-                .check(matches(isDisplayed()))
-
-        onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
-        onView(withId(event_list)).perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-        delay()
-
-        onView(withId(add_to_favorite)).perform(click())
-
-        Espresso.pressBack()
-        delay()
-
-        onView(withId(refreshLayout)).perform(ViewActions.swipeDown())
-
-        delay()
+//        onView(withId(team)).perform(click())
+//
+//        delay()
+//        onView(withId(team_list))
+//                .check(matches(isDisplayed()))
+//        delay()
+//        onView(withId(team_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
+//        onView(withId(team_list)).perform(
+//                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
+//        delay()
+//
+//        onView(withId(add_to_favorite)).perform(click())
+//
+//        Espresso.pressBack()
+//        delay()
+//
+//        onView(withId(favorites)).perform(click())
+//
+//        delay()
+//        onView(withId(event_list))
+//                .check(matches(isDisplayed()))
+//
+//        onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+//        onView(withId(event_list)).perform(
+//                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+//        delay()
+//
+//        onView(withId(add_to_favorite)).perform(click())
+//
+//        Espresso.pressBack()
+//        delay()
+//
+//        onView(withId(refreshLayout)).perform(ViewActions.swipeDown())
+//
+//        delay()
     }
 
     private fun delay(){

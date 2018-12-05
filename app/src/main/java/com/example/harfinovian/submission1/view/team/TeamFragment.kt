@@ -4,9 +4,8 @@ import android.R
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.SearchView
+import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import com.example.harfinovian.submission1.R.array.league_list
@@ -19,8 +18,10 @@ import com.example.harfinovian.submission1.model.Team
 import com.example.harfinovian.submission1.presenter.team.ITeamPresenter
 import com.example.harfinovian.submission1.presenter.team.TeamPresenter
 import com.example.harfinovian.submission1.utlis.AppSchedulerProvider
+import com.example.harfinovian.submission1.view.searchmatch.SearchMatchActivity
 import com.example.harfinovian.submission1.view.teamdetail.TeamDetailActivity
 import kotlinx.android.synthetic.main.fragment_team.*
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.support.v4.startActivity
 
 class TeamFragment : Fragment(), TeamView {
@@ -28,6 +29,7 @@ class TeamFragment : Fragment(), TeamView {
     private var refreshData: Boolean = false
     private lateinit var leagueName : String
     private lateinit var iFragmentPresenter: ITeamPresenter
+    private var idLeague: String = "4328"
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -41,18 +43,41 @@ class TeamFragment : Fragment(), TeamView {
 
         val spinnerItems = resources.getStringArray(league_list)
         val spinnerAdapter = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, spinnerItems)
+        setHasOptionsMenu(true)
+
         spinner_team.adapter = spinnerAdapter
         spinner_team.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
                 leagueName = spinner_team.selectedItem.toString()
                 when(leagueName){
-                    "English Premier League" -> iFragmentPresenter.getFootballTeamData("4328")
-                    "German Bundesliga" -> iFragmentPresenter.getFootballTeamData("4331")
-                    "Italian Serie A" -> iFragmentPresenter.getFootballTeamData("4332")
-                    "French Ligue 1" -> iFragmentPresenter.getFootballTeamData("4334")
-                    "Spanish La Liga" -> iFragmentPresenter.getFootballTeamData("4335")
-                    "Netherlands Eredivisie" -> iFragmentPresenter.getFootballTeamData("4337")
-                    else -> iFragmentPresenter.getFootballTeamData("4328")
+                    "English Premier League" -> {
+                        iFragmentPresenter.getFootballTeamData(idLeague)
+                        idLeague = "4328"
+                    }
+                    "German Bundesliga" -> {
+                        iFragmentPresenter.getFootballTeamData("4331")
+                        idLeague = "4331"
+                    }
+                    "Italian Serie A" -> {
+                        iFragmentPresenter.getFootballTeamData("4332")
+                        idLeague = "4332"
+                    }
+                    "French Ligue 1" -> {
+                        iFragmentPresenter.getFootballTeamData("4334")
+                        idLeague = "4334"
+                    }
+                    "Spanish La Liga" -> {
+                        iFragmentPresenter.getFootballTeamData("4335")
+                        idLeague = "4335"
+                    }
+                    "Netherlands Eredivisie" -> {
+                        iFragmentPresenter.getFootballTeamData("4337")
+                        idLeague = "4337"
+                    }
+                    else -> {
+                        iFragmentPresenter.getFootballTeamData("4328")
+                        idLeague = "4328"
+                    }
                 }
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
@@ -70,6 +95,30 @@ class TeamFragment : Fragment(), TeamView {
         val myFragment = inflater.inflate(fragment_team, container, false)
 
         return myFragment
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+        super.onCreateOptionsMenu(menu, inflater)
+        inflater?.inflate(com.example.harfinovian.submission1.R.menu.menu_search, menu)
+
+        val searchView = menu?.findItem(com.example.harfinovian.submission1.R.id.actionSearch)?.actionView as SearchView?
+
+        searchView?.queryHint = "Search teams"
+
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                context?.startActivity<SearchMatchActivity>(
+                        "query" to query,
+                        "param" to "team"
+                )
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+
+                return false
+            }
+        })
     }
 
     override fun showTeamList(data: List<Team>) {

@@ -36,7 +36,7 @@ class FavoriteFragment : Fragment() {
 
         searchView?.queryHint = "Search matches"
 
-        searchView?.setOnQueryTextListener(object : android.support.v7.widget.SearchView.OnQueryTextListener {
+        searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
                 context?.startActivity<SearchMatchActivity>("query" to query)
                 return false

@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.example.harfinovian.submission1.R.layout.item_team_list
 import com.example.harfinovian.submission1.entity.db.FavoriteTeam
 import kotlinx.android.extensions.LayoutContainer
@@ -29,7 +30,7 @@ class FavoriteTeamAdapter(private val items: List<FavoriteTeam>,
 
         fun bind(items: FavoriteTeam, listener: (FavoriteTeam) -> Unit) = with(itemView) {
             team_name_txt.text = items.teamName
-
+            Glide.with(context).load(items.teamImage).into(team_img)
 
             itemView.setOnClickListener { listener(items) }
         }

@@ -2,33 +2,34 @@ package com.example.harfinovian.submission1.repository
 
 import com.example.harfinovian.submission1.api.TheSportDBApi
 import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
+import com.example.harfinovian.submission1.entity.repository.TeamRepositoryImpl
 import org.junit.Before
 import org.junit.Test
 import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.MockitoAnnotations
 
-class MatchRepositoryImplTest {
+class TeamRepositoryImplTest {
     @Mock
     lateinit var footballRest: TheSportDBApi
 
-    lateinit var matchRepositoryImpl: MatchRepositoryImpl
+    lateinit var matchRepositoryImpl: TeamRepositoryImpl
 
     @Before
     fun setupEnv() {
         MockitoAnnotations.initMocks(this)
-        matchRepositoryImpl = MatchRepositoryImpl(footballRest)
+        matchRepositoryImpl = TeamRepositoryImpl(footballRest)
     }
 
     @Test
-    fun getNextMatch() {
-        matchRepositoryImpl.getUpcomingMatch("4328")
-        Mockito.verify(footballRest).getNextEvent("4328")
+    fun getAllTeam() {
+        matchRepositoryImpl.getListTeam("4328")
+        Mockito.verify(footballRest).getAllTeam("4328")
     }
 
     @Test
-    fun getLastMatch() {
-        matchRepositoryImpl.getPastMatch("4328")
-        Mockito.verify(footballRest).getPastEvent("4328")
+    fun getTeam() {
+        matchRepositoryImpl.getTeam("133604")
+        Mockito.verify(footballRest).getTeam("133604")
     }
 }

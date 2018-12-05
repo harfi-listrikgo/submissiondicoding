@@ -22,7 +22,7 @@ interface TheSportDBApi {
     fun getTeam(@Query("id") id:String): Flowable<Teams>
 
     @GET("searchteams.php")
-    fun getTeamBySearch(@Query("t") query: String) : Flowable<Teams>
+    fun getTeamBySearch(@Query("t") query: String?) : Flowable<Teams>
 
     @GET("lookup_all_teams.php")
     fun getAllTeam(@Query("id") id:String) : Flowable<Teams>

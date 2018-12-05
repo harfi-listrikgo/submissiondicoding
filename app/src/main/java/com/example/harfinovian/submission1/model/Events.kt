@@ -4,7 +4,8 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 data class Events (
-        var events: List<Event> = listOf()
+        var events: List<Event> = listOf(),
+        var event: List<Event> = listOf()
 )
 
 @Parcelize
