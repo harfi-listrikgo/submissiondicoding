@@ -17,13 +17,13 @@ import com.example.harfinovian.submission1.presenter.player.IPlayerPresenter
 import com.example.harfinovian.submission1.presenter.player.PlayerPresenter
 import com.example.harfinovian.submission1.utlis.AppSchedulerProvider
 import com.example.harfinovian.submission1.view.detail.DetailActivity
+import com.example.harfinovian.submission1.view.playerdetail.PlayerDetailActivity
 import kotlinx.android.synthetic.main.fragment_player.*
 import org.jetbrains.anko.support.v4.startActivity
 
 class PlayerFragment : Fragment(), PlayerView{
 
     private var refreshData: Boolean = false
-    private lateinit var leagueName : String
     private lateinit var iFragmentPresenter: IPlayerPresenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +45,7 @@ class PlayerFragment : Fragment(), PlayerView{
         val scheduler = AppSchedulerProvider()
 
         iFragmentPresenter = PlayerPresenter(this, request, scheduler)
-        iFragmentPresenter.getPlayerData(team!!.idTeam)
+        iFragmentPresenter.getPlayerListData(team!!.idTeam)
 
         player_list.layoutManager = LinearLayoutManager(context)
     }
@@ -62,7 +62,9 @@ class PlayerFragment : Fragment(), PlayerView{
 
     override fun showPlayerList(data: List<Player>) {
         player_list.adapter = PlayerAdapter(data){
-            this.startActivity<DetailActivity>()
+            this.startActivity<PlayerDetailActivity>(
+                    "idPlayer" to it.idPlayer
+            )
         }
         hideLoading()
     }

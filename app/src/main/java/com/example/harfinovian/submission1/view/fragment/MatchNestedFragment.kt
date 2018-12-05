@@ -12,7 +12,6 @@ import android.R
 import com.example.harfinovian.submission1.R.array.league_list
 import com.example.harfinovian.submission1.R.layout.fragment_nested_match
 import com.example.harfinovian.submission1.adapter.FavoriteAdapter
-import com.example.harfinovian.submission1.view.teamdetail.TeamDetailActivity
 import com.example.harfinovian.submission1.adapter.ScoreAdapter
 import com.example.harfinovian.submission1.api.APIRepository
 import com.example.harfinovian.submission1.api.TheSportDBApi

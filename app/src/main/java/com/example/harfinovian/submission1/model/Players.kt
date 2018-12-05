@@ -5,7 +5,9 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 data class Players(
-        var player: List<Player>)
+        var players: List<Player> = listOf(),
+        var player: List<Player> = listOf()
+)
 
 @Parcelize
 data class Player(

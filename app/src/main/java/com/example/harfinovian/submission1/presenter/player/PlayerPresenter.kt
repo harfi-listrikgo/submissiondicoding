@@ -17,7 +17,7 @@ class PlayerPresenter(val mView : PlayerView,
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun getPlayerData(id: String?) {
+    override fun getPlayerListData(id: String?) {
         mView.showLoading()
         compositeDisposable.add(playerRepositoryImpl.getListPlayer(id)
                 .observeOn(scheduler.ui())
@@ -38,4 +38,5 @@ class PlayerPresenter(val mView : PlayerView,
                 })
         )
     }
+
 }

@@ -16,7 +16,7 @@ interface TheSportDBApi {
     fun getEvent(@Query("id") id: String): Flowable<Events>
 
     @GET("searchevents.php")
-    fun searchMatches(@Query("e") query: String) : Flowable<Events>
+    fun searchMatches(@Query("e") query: String?) : Flowable<Events>
 
     @GET("lookupteam.php")
     fun getTeam(@Query("id") id:String): Flowable<Teams>

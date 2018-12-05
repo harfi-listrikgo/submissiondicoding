@@ -6,9 +6,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
-import android.widget.LinearLayout
 import com.bumptech.glide.Glide
 import com.example.harfinovian.submission1.R.drawable.ic_add_to_favorites
 import com.example.harfinovian.submission1.R.drawable.ic_added_to_favorites
@@ -19,19 +17,20 @@ import com.example.harfinovian.submission1.adapter.ViewPagerAdapter
 import com.example.harfinovian.submission1.api.APIRepository
 import com.example.harfinovian.submission1.api.TheSportDBApi
 import com.example.harfinovian.submission1.entity.db.Favorite
+import com.example.harfinovian.submission1.entity.db.FavoriteTeam
 import com.example.harfinovian.submission1.entity.db.database
 import com.example.harfinovian.submission1.entity.repository.TeamRepositoryImpl
 import com.example.harfinovian.submission1.model.Team
 import com.example.harfinovian.submission1.presenter.teamdetail.ITeamDetailPresenter
 import com.example.harfinovian.submission1.presenter.teamdetail.TeamDetailPresenter
 import com.example.harfinovian.submission1.utlis.AppSchedulerProvider
-import com.example.harfinovian.submission1.view.fragment.MatchNestedFragment
 import com.example.harfinovian.submission1.view.player.PlayerFragment
 import com.example.harfinovian.submission1.view.team.TeamFragment
 import kotlinx.android.synthetic.main.activity_team_detail.*
 import kotlinx.android.synthetic.main.text_prop_match_detail.view.*
 import org.jetbrains.anko.db.classParser
 import org.jetbrains.anko.db.delete
+import org.jetbrains.anko.db.insert
 import org.jetbrains.anko.db.select
 import org.jetbrains.anko.design.snackbar
 
@@ -93,8 +92,8 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
 
     private fun favoriteState(){
         database.use {
-            val result = select(Favorite.TABLE_FAVORITE)
-                    .whereArgs("(ID_EVENT = {id})",
+            val result = select(FavoriteTeam.TABLE_FAVORITE_TEAM)
+                    .whereArgs("(ID_TEAM = {id})",
                             "id" to id)
             val favorite = result.parseList(classParser<Favorite>())
             if (!favorite.isEmpty()) isFavorite = true
@@ -103,17 +102,12 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
 
     private fun addToFavorite(){
         try {
-//            database.use {
-//                insert(Favorite.TABLE_FAVORITE,
-//                        Favorite.ID_EVENT to match?.idEvent,
-//                        Favorite.TEAM_HOME_ID to match?.idHomeTeam,
-//                        Favorite.TEAM_AWAY_ID to match?.idAwayTeam,
-//                        Favorite.HOME_TEAM to match?.strHomeTeam,
-//                        Favorite.AWAY_TEAM to match?.strAwayTeam,
-//                        Favorite.SCORE_HOME_TEAM to match?.intHomeScore,
-//                        Favorite.SCORE_AWAY_TEAM to match?.intAwayScore,
-//                        Favorite.DATE to match?.dateEvent)
-//            }
+            database.use {
+                insert(FavoriteTeam.TABLE_FAVORITE_TEAM,
+                        FavoriteTeam.ID_TEAM to team?.idTeam,
+                        FavoriteTeam.TEAM_NAME to team?.strTeam,
+                        FavoriteTeam.TEAM_IMAGE to team?.strTeamLogo)
+            }
             snackbar(swipeRefresh, "Added to favorite").show()
         } catch (e: SQLiteConstraintException){
             snackbar(swipeRefresh, e.localizedMessage).show()
@@ -123,7 +117,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
     private fun removeFromFavorite(){
         try {
             database.use {
-                delete(Favorite.TABLE_FAVORITE, "(ID_EVENT = {id})",
+                delete(FavoriteTeam.TABLE_FAVORITE_TEAM, "(ID_TEAM = {id})",
                         "id" to id)
             }
             snackbar(swipeRefresh,"Removed to favorite").show()

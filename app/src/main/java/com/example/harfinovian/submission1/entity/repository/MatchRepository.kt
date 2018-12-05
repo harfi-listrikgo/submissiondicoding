@@ -9,5 +9,5 @@ interface MatchRepository {
     fun getPastMatch(id: String) : Flowable<Events>
     fun getEventById(id: String) : Flowable<Events>
     fun getTeam(id: String) : Flowable<Teams>
-    fun getListTeam(idLeague: String) : Flowable<Teams>
+    fun searchMatches(query: String?) : Flowable<Events>
 }

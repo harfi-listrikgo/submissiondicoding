@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".view.detail.DetailActivity" />
         <activity android:name=".view.teamdetail.TeamDetailActivity" />
-        <activity android:name=".view.playerdetail.PlayerDetailActivity"></activity>
+        <activity android:name=".view.playerdetail.PlayerDetailActivity" />
+        <activity android:name=".view.searchmatch.SearchMatchActivity" />
     </application>
 
 </manifest>

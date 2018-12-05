@@ -28,11 +28,11 @@ class  MatchFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
 //        inflater?.inflate(R.menu.menu_search, menu)
 //
-//        val searchView = menu?.findItem(R.id.actionSearch)?.actionView as SearchView?
+//        val searchView = menu?.findItem(R.id.actionSearch)?.actionView as SearchMatchView?
 //
 //        searchView?.queryHint = "Search matches"
 //
-//        searchView?.setOnQueryTextListener(object : android.support.v7.widget.SearchView.OnQueryTextListener {
+//        searchView?.setOnQueryTextListener(object : android.support.v7.widget.SearchMatchView.OnQueryTextListener {
 //            override fun onQueryTextSubmit(query: String): Boolean {
 //                context?.startActivity<SearchMatchActivity>("query" to query)
 //                return false

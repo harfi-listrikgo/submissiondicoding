@@ -7,6 +7,7 @@ import com.example.harfinovian.submission1.R
 import com.example.harfinovian.submission1.R.layout.activity_main
 import com.example.harfinovian.submission1.R.string.*
 import com.example.harfinovian.submission1.view.favorite.FavoriteFragment
+import com.example.harfinovian.submission1.view.favorite.FavoriteTabFragment
 import com.example.harfinovian.submission1.view.fragment.MatchFragment
 import com.example.harfinovian.submission1.view.fragment.MatchNestedFragment
 import com.example.harfinovian.submission1.view.team.TeamFragment
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity(), MainView {
         if (savedInstanceState == null) {
             supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.main_container, FavoriteFragment(), FavoriteFragment::class.java.simpleName)
+                    .replace(R.id.main_container, FavoriteFragment(), FavoriteTabFragment::class.java.simpleName)
                     .commit()
         }
     }
