@@ -6,6 +6,10 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.R
+import com.example.harfinovian.submission1.R.array.league_list
 import com.example.harfinovian.submission1.R.layout.fragment_nested_match
 import com.example.harfinovian.submission1.adapter.FavoriteAdapter
 import com.example.harfinovian.submission1.view.teamdetail.TeamDetailActivity
@@ -18,12 +22,14 @@ import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.presenter.match.IMatchPresenter
 import com.example.harfinovian.submission1.presenter.match.MatchPresenter
 import com.example.harfinovian.submission1.utlis.AppSchedulerProvider
+import com.example.harfinovian.submission1.view.detail.DetailActivity
 import kotlinx.android.synthetic.main.fragment_nested_match.*
 import org.jetbrains.anko.support.v4.startActivity
 
 class MatchNestedFragment : Fragment(), MatchView {
 
     private var refreshData: Boolean = false
+    private lateinit var leagueName : String
     private lateinit var iFragmentPresenter: IMatchPresenter
 
     fun lastmatch(category: String): MatchNestedFragment {
@@ -56,9 +62,29 @@ class MatchNestedFragment : Fragment(), MatchView {
 
         val param = arguments!!.getString("category")
 
-        iFragmentPresenter.getFootballMatchData(param)
+        iFragmentPresenter.getFootballMatchData(param, "4328")
+
+        val spinnerItems = resources.getStringArray(league_list)
+        val spinnerAdapter = ArrayAdapter(context, R.layout.simple_spinner_dropdown_item, spinnerItems)
+        spinner_league.adapter = spinnerAdapter
+        spinner_league.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                leagueName = spinner_league.selectedItem.toString()
+                when(leagueName){
+                    "English Premier League" -> iFragmentPresenter.getFootballMatchData(param, "4328")
+                    "German Bundesliga" -> iFragmentPresenter.getFootballMatchData(param,"4331")
+                    "Italian Serie A" -> iFragmentPresenter.getFootballMatchData(param,"4332")
+                    "French Ligue 1" -> iFragmentPresenter.getFootballMatchData(param,"4334")
+                    "Spanish La Liga" -> iFragmentPresenter.getFootballMatchData(param,"4335")
+                    "Netherlands Eredivisie" -> iFragmentPresenter.getFootballMatchData(param,"4337")
+                    else -> iFragmentPresenter.getFootballMatchData(param,"4328")
+                }
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
         refreshLayout.setOnRefreshListener {
-            iFragmentPresenter.getFootballMatchData(param)
+            iFragmentPresenter.getFootballMatchData(param, "4328")
         }
         event_list.layoutManager = LinearLayoutManager(context)
     }
@@ -73,7 +99,7 @@ class MatchNestedFragment : Fragment(), MatchView {
 
     override fun showEventList(data: List<Event>) {
         event_list.adapter = ScoreAdapter(data){
-            this.startActivity<TeamDetailActivity>(
+            this.startActivity<DetailActivity>(
                     "idHome" to it.idHomeTeam,
                     "idAway" to it.idAwayTeam,
                     "idEvent" to it.idEvent)
@@ -83,7 +109,7 @@ class MatchNestedFragment : Fragment(), MatchView {
 
     override fun showFavoriteList(data: List<Favorite>) {
         event_list.adapter = FavoriteAdapter(data){
-            this.startActivity<TeamDetailActivity>(
+            this.startActivity<DetailActivity>(
                     "idHome" to it.teamHomeId,
                     "idAway" to it.teamAwayId,
                     "idEvent" to it.eventId)

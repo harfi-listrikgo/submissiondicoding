@@ -11,9 +11,9 @@ class MatchRepositoryImpl(private val footballRest: TheSportDBApi) : MatchReposi
 
     override fun getEventById(id: String): Flowable<Events> = footballRest.getEvent(id)
 
-    override fun getUpcomingMatch(): Flowable<Events> = footballRest.getNextEvent()
+    override fun getUpcomingMatch(id: String): Flowable<Events> = footballRest.getNextEvent(id)
 
-    override fun getPastMatch(): Flowable<Events> = footballRest.getPastEvent()
+    override fun getPastMatch(id: String): Flowable<Events> = footballRest.getPastEvent(id)
 
     override fun getTeam(id: String): Flowable<Teams> = footballRest.getTeam(id)
 

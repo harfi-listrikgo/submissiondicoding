@@ -6,7 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.harfinovian.submission1.R.layout.fragment_nested_match
+import com.example.harfinovian.submission1.R.layout.fragment_favorite
 import com.example.harfinovian.submission1.adapter.FavoriteAdapter
 import com.example.harfinovian.submission1.view.teamdetail.TeamDetailActivity
 import com.example.harfinovian.submission1.entity.db.Favorite
@@ -35,7 +35,7 @@ class FavoriteFragment : Fragment(), FavoriteView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
-        val myFragment = inflater.inflate(fragment_nested_match, container, false)
+        val myFragment = inflater.inflate(fragment_favorite, container, false)
 
         return myFragment
     }

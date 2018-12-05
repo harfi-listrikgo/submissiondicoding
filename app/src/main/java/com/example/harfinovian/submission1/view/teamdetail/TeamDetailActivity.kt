@@ -26,6 +26,8 @@ import com.example.harfinovian.submission1.presenter.teamdetail.ITeamDetailPrese
 import com.example.harfinovian.submission1.presenter.teamdetail.TeamDetailPresenter
 import com.example.harfinovian.submission1.utlis.AppSchedulerProvider
 import com.example.harfinovian.submission1.view.fragment.MatchNestedFragment
+import com.example.harfinovian.submission1.view.player.PlayerFragment
+import com.example.harfinovian.submission1.view.team.TeamFragment
 import kotlinx.android.synthetic.main.activity_team_detail.*
 import kotlinx.android.synthetic.main.text_prop_match_detail.view.*
 import org.jetbrains.anko.db.classParser
@@ -39,7 +41,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
     private var menuItem: Menu? = null
     private var isFavorite: Boolean = false
     private lateinit var id: String
-    private var match: Team? = null
+    private var team: Team? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,13 +51,6 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
 
         id = intent.getStringExtra("idTeam")
 
-        val adapter = ViewPagerAdapter(supportFragmentManager)
-
-        adapter.populateFragment(MatchNestedFragment().lastmatch("last"), "Last Match")
-        adapter.populateFragment(MatchNestedFragment().nextmatch("next"), "Upcoming")
-        view_pager.adapter = adapter
-        tab_layout.setupWithViewPager(view_pager)
-
         favoriteState()
 
         val service = APIRepository.getClient().create(TheSportDBApi::class.java)
@@ -64,6 +59,10 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
         iFragmentPresenter = TeamDetailPresenter(this, request, scheduler)
         iFragmentPresenter?.getTeamDetail(id)
         iFragmentPresenter?.showLogo(id, team_img)
+
+        swipeRefresh.setOnRefreshListener {
+            swipeRefresh.setRefreshing(false)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -80,7 +79,7 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
                 true
             }
             add_to_favorite -> {
-                if (isFavorite) removeFromFavorite() else if (match != null) addToFavorite()
+                if (isFavorite) removeFromFavorite() else if (team != null) addToFavorite()
 
                 isFavorite = !isFavorite
                 setFavorite()
@@ -149,43 +148,29 @@ class TeamDetailActivity : AppCompatActivity(), TeamDetailView {
     }
 
     override fun bindView(res: Team) {
-        match = res
+        team = res
 
-//        date_txt.text = res.dateEvent
-//        score_home_txt.text = res.intHomeScore
-//        score_away_txt.text = res.intAwayScore
-//        home_team_txt.text = res.strHomeTeam
-//        away_team_txt.text = res.strAwayTeam
-//
-//        content_ly.addView(addDynamicView("Goals", res.strHomeGoalDetails, res.strAwayGoalDetails))
-//        content_ly.addView(addDynamicView("Shots", res.intHomeShots, res.intAwayShots))
-//        detail_ly.addView(addDynamicView("Goal Keeper", res.strHomeLineupGoalkeeper, res.strAwayLineupGoalkeeper))
-//        detail_ly.addView(addDynamicView("Defense", res.strHomeLineupDefense, res.strAwayLineupDefense))
-//        detail_ly.addView(addDynamicView("Midfield", res.strHomeLineupMidfield, res.strAwayLineupMidfield))
-//        detail_ly.addView(addDynamicView("Forward", res.strHomeLineupForward, res.strAwayLineupForward))
-//        detail_ly.addView(addDynamicView("Subtitutes", res.strHomeLineupSubstitutes, res.strAwayLineupSubstitutes))
+        team_name_txt.text = res.strTeam
+        year_txt.text = res.intFormedYear
+        stadium_txt.text = res.strStadium
+
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+        val overviewFrag = TeamOverviewFragment()
+        val playerFrag = PlayerFragment()
+        val args = Bundle()
+        args.putParcelable("teams", team)
+        overviewFrag.setArguments(args)
+        playerFrag.setArguments(args)
+
+        adapter.populateFragment(overviewFrag, "Overview")
+        adapter.populateFragment(playerFrag, "Player")
+        view_pager.adapter = adapter
+        tab_layout.setupWithViewPager(view_pager)
+
     }
 
     override fun showLogo(url: String?, imageView : ImageView) {
         Glide.with(applicationContext).load(url).into(imageView)
-    }
-
-    private fun addDynamicView(title: String?, homeProp: String?, awayProp: String?): LinearLayout {
-        val linearLayout = View.inflate(this,
-                text_prop_match_detail, null) as LinearLayout
-
-        linearLayout.title_txt?.text = title
-        val home = homeProp?.split(";")
-        home?.forEach {
-            linearLayout.home_txt.append(it.trim() + "\n")
-        }
-
-        val away = awayProp?.split(";")
-        away?.forEach {
-            linearLayout.away_txt.append(it.trim() + "\n")
-        }
-
-        return linearLayout
     }
 
     override fun onSupportNavigateUp(): Boolean {

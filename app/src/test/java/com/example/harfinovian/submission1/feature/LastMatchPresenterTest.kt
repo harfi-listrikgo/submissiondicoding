@@ -3,7 +3,7 @@ package com.example.harfinovian.submission1.feature
 import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
 import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.model.Events
-import com.example.harfinovian.submission1.presenter.match.TeamPresenter
+import com.example.harfinovian.submission1.presenter.match.MatchPresenter
 import com.example.harfinovian.submission1.utlis.SchedulerProvider
 import com.example.harfinovian.submission1.utlis.TestSchedulerProvider
 import com.example.harfinovian.submission1.view.fragment.MatchView
@@ -23,7 +23,7 @@ class LastMatchPresenterTest {
 
     lateinit var scheduler: SchedulerProvider
 
-    lateinit var mPresenter: TeamPresenter
+    lateinit var mPresenter: MatchPresenter
 
     lateinit var match : Events
 
@@ -37,13 +37,13 @@ class LastMatchPresenterTest {
         scheduler = TestSchedulerProvider()
         match = Events(event)
         footballMatch = Flowable.just(match)
-        mPresenter = TeamPresenter(mView, matchRepositoryImpl, scheduler)
-        Mockito.`when`(matchRepositoryImpl.getPastMatch()).thenReturn(footballMatch)
+        mPresenter = MatchPresenter(mView, matchRepositoryImpl, scheduler)
+        Mockito.`when`(matchRepositoryImpl.getPastMatch("4328")).thenReturn(footballMatch)
     }
 
     @Test
     fun getFootballMatchData() {
-        mPresenter.getFootballMatchData("last")
+        mPresenter.getFootballMatchData("last", "4328")
         Mockito.verify(mView).showLoading()
         Mockito.verify(mView).showEventList(event)
         Mockito.verify(mView).hideLoading()

@@ -1,9 +1,13 @@
 package com.example.harfinovian.submission1.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
 data class Teams (
         var teams: List<Team> = listOf()
 )
 
+@Parcelize
 data class Team (
         var idTeam: String?,
         var idSoccerXML: String?,
@@ -55,4 +59,4 @@ data class Team (
         var strTeamBanner: String?,
         var strYoutube: String?,
         var strLocked: String?
-)
+) : Parcelable

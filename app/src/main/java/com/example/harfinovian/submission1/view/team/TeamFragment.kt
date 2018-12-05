@@ -26,7 +26,7 @@ import org.jetbrains.anko.support.v4.startActivity
 class TeamFragment : Fragment(), TeamView {
 
     private var refreshData: Boolean = false
-    lateinit var leagueName : String
+    private lateinit var leagueName : String
     private lateinit var iFragmentPresenter: ITeamPresenter
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

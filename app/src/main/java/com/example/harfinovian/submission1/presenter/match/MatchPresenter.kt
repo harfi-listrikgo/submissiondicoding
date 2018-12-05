@@ -13,10 +13,10 @@ class MatchPresenter(val mView : MatchView,
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun getFootballMatchData(param: String?) {
+    override fun getFootballMatchData(param: String?, id: String) {
         mView.showLoading()
         if (param.equals("last")) {
-            compositeDisposable.add(matchRepositoryImpl.getPastMatch()
+            compositeDisposable.add(matchRepositoryImpl.getPastMatch(id)
                     .observeOn(scheduler.ui())
                     .subscribeOn(scheduler.io())
                     .subscribeWith(object : ResourceSubscriber<Events>(){
@@ -35,7 +35,7 @@ class MatchPresenter(val mView : MatchView,
                     })
             )
         } else if (param.equals("next")){
-            compositeDisposable.add(matchRepositoryImpl.getUpcomingMatch()
+            compositeDisposable.add(matchRepositoryImpl.getUpcomingMatch(id)
                     .observeOn(scheduler.ui())
                     .subscribeOn(scheduler.io())
                     .subscribeWith(object : ResourceSubscriber<Events>(){
