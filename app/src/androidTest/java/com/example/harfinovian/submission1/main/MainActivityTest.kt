@@ -4,7 +4,7 @@ import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onData
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.contrib.RecyclerViewActions
 import android.support.test.espresso.matcher.ViewMatchers.*
@@ -97,6 +97,29 @@ class MainActivityTest {
 
         onView(allOf(withId(refreshLayout), isDisplayed())).perform(ViewActions.swipeDown())
 
+        delay()
+        onView(withId(match)).perform(click())
+
+        delay()
+        onView(withId(actionSearch)).perform(click())
+
+        delay()
+        onView(withId(android.support.design.R.id.search_src_text))
+                .perform(typeText("Arsenal"), closeSoftKeyboard())
+
+        delay()
+        onView(withId(android.support.design.R.id.search_src_text)).perform(pressImeActionButton())
+
+        delay()
+        onView(withId(football_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+        onView(withId(football_list)).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
+        delay()
+        Espresso.pressBack()
+
+        delay()
+        Espresso.pressBack()
     }
 
     private fun delay(){
