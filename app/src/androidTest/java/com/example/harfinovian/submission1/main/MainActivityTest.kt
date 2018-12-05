@@ -21,6 +21,7 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
+
 /**
  * Created by root on 3/1/18.
  */
@@ -33,59 +34,74 @@ class MainActivityTest {
     fun mainActivityTest() {
 
         delay()
-        onView(withId(event_list))
+        onView(withId(view_pager))
                 .check(matches(isDisplayed()))
         delay()
-        onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
-        onView(withId(event_list)).perform(
-                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
-        delay()
 
+        onView(allOf(withId(spinner_league), isDisplayed())).check(matches(isDisplayed()))
+        onView(allOf(withId(spinner_league), isDisplayed())).perform(click())
+
+        delay()
+        onView(allOf(withText("Spanish La Liga"), isDisplayed())).perform(click())
+
+        delay()
+        onView(allOf(withId(event_list), isDisplayed())).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
+        onView(allOf(withId(event_list), isDisplayed())).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
+
+        delay()
         onView(withId(add_to_favorite)).perform(click())
 
         Espresso.pressBack()
         delay()
 
-//        onView(withId(team)).perform(click())
-//
-//        delay()
-//        onView(withId(team_list))
-//                .check(matches(isDisplayed()))
-//        delay()
-//        onView(withId(team_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
-//        onView(withId(team_list)).perform(
-//                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
-//        delay()
-//
-//        onView(withId(add_to_favorite)).perform(click())
-//
-//        Espresso.pressBack()
-//        delay()
-//
-//        onView(withId(favorites)).perform(click())
-//
-//        delay()
-//        onView(withId(event_list))
-//                .check(matches(isDisplayed()))
-//
-//        onView(withId(event_list)).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
-//        onView(withId(event_list)).perform(
-//                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
-//        delay()
-//
-//        onView(withId(add_to_favorite)).perform(click())
-//
-//        Espresso.pressBack()
-//        delay()
-//
-//        onView(withId(refreshLayout)).perform(ViewActions.swipeDown())
-//
-//        delay()
+        // Teams
+        onView(withId(team)).perform(click())
+        delay()
+
+        onView(allOf(withId(team_list), isDisplayed())).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
+        onView(allOf(withId(team_list), isDisplayed())).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
+
+        delay()
+        onView(allOf(withId(view_pager), isDisplayed())).perform(ViewActions.swipeLeft())
+
+        delay()
+        onView(allOf(withId(player_list), isDisplayed())).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(4))
+        onView(allOf(withId(player_list), isDisplayed())).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(4, click()))
+
+        delay()
+        delay()
+        Espresso.pressBack()
+
+        delay()
+        onView(withId(add_to_favorite)).perform(click())
+
+        Espresso.pressBack()
+        delay()
+
+        // Favorite
+        onView(withId(favorites)).perform(click())
+        delay()
+
+        onView(allOf(withId(event_list), isDisplayed())).perform(RecyclerViewActions.scrollToPosition<RecyclerView.ViewHolder>(0))
+        onView(allOf(withId(event_list), isDisplayed())).perform(
+                RecyclerViewActions.actionOnItemAtPosition<RecyclerView.ViewHolder>(0, click()))
+
+        delay()
+        onView(withId(add_to_favorite)).perform(click())
+
+        Espresso.pressBack()
+        delay()
+
+        onView(allOf(withId(refreshLayout), isDisplayed())).perform(ViewActions.swipeDown())
+
     }
 
     private fun delay(){
         try {
-            Thread.sleep(2000)
+            Thread.sleep(1000)
         } catch (e: InterruptedException) {
             e.printStackTrace()
         }

@@ -18,7 +18,7 @@ import com.example.harfinovian.submission1.model.Team
 import com.example.harfinovian.submission1.presenter.team.ITeamPresenter
 import com.example.harfinovian.submission1.presenter.team.TeamPresenter
 import com.example.harfinovian.submission1.utlis.AppSchedulerProvider
-import com.example.harfinovian.submission1.view.searchmatch.SearchMatchActivity
+import com.example.harfinovian.submission1.view.searchmatch.SearchActivity
 import com.example.harfinovian.submission1.view.teamdetail.TeamDetailActivity
 import kotlinx.android.synthetic.main.fragment_team.*
 import org.jetbrains.anko.startActivity
@@ -107,7 +107,7 @@ class TeamFragment : Fragment(), TeamView {
 
         searchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String): Boolean {
-                context?.startActivity<SearchMatchActivity>(
+                context?.startActivity<SearchActivity>(
                         "query" to query,
                         "param" to "team"
                 )

@@ -54,6 +54,9 @@ class MatchPresenter(val mView : MatchView,
                     })
             )
         }
+    }
 
+    override fun onDestroy(){
+        compositeDisposable.dispose()
     }
 }

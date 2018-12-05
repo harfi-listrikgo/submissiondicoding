@@ -4,4 +4,5 @@ import android.view.View
 
 interface IMatchPresenter {
     fun getFootballMatchData(param: String?, id: String)
+    fun onDestroy()
 }

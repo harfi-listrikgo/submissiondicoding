@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity(), MainView {
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.last -> {
+                R.id.match -> {
                     loadLastFragment(savedInstanceState)
                 }
                 R.id.team -> {
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), MainView {
             }
             true
         }
-        bottom_navigation.selectedItemId = R.id.last
+        bottom_navigation.selectedItemId = R.id.match
     }
 
     override fun loadLastFragment(savedInstanceState: Bundle?) {

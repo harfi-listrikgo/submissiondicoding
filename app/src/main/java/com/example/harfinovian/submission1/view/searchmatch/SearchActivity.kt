@@ -11,7 +11,6 @@ import com.example.harfinovian.submission1.adapter.ScoreAdapter
 import com.example.harfinovian.submission1.adapter.TeamAdapter
 import com.example.harfinovian.submission1.api.APIRepository
 import com.example.harfinovian.submission1.api.TheSportDBApi
-import com.example.harfinovian.submission1.entity.repository.MatchRepositoryImpl
 import com.example.harfinovian.submission1.entity.repository.SearchRepositoryImpl
 import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.model.Team
@@ -24,7 +23,7 @@ import com.example.harfinovian.submission1.view.teamdetail.TeamDetailActivity
 import kotlinx.android.synthetic.main.activity_search_match.*
 import org.jetbrains.anko.startActivity
 
-class SearchMatchActivity : AppCompatActivity(), SearchMatchView {
+class SearchActivity : AppCompatActivity(), ISearchView {
 
     private var matchLists : MutableList<Event> = mutableListOf()
     private var teamLists : MutableList<Team> = mutableListOf()

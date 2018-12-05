@@ -96,6 +96,11 @@ class MatchNestedFragment : Fragment(), MatchView {
         return myFragment
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        iFragmentPresenter.onDestroy()
+    }
+
     override fun showEventList(data: List<Event>) {
         event_list.adapter = ScoreAdapter(data){
             this.startActivity<DetailActivity>(

@@ -3,7 +3,7 @@ package com.example.harfinovian.submission1.view.searchmatch
 import com.example.harfinovian.submission1.model.Event
 import com.example.harfinovian.submission1.model.Team
 
-interface SearchMatchView{
+interface ISearchView{
     fun setToolbar()
     fun showLoading()
     fun hideLoading()
